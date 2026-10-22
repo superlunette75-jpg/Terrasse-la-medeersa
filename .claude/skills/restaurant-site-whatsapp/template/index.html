@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- TODO: "Name, cuisine, city" and a one-sentence description -->
+  <title>Nom du Restaurant, restaurant marocain à Marrakech</title>
+  <meta name="description" content="Cuisine marocaine de saison. Commandez en ligne, livraison ou à emporter, confirmation sur WhatsApp.">
+  <meta property="og:title" content="Nom du Restaurant">
+  <meta property="og:description" content="Cuisine marocaine de saison sur une terrasse au cœur de la médina.">
+  <meta property="og:type" content="restaurant">
+  <!-- <meta property="og:image" content="images/og.jpg"> -->
+  <meta name="theme-color" content="#F4EDE3">
+
+  <!-- Fonts: replace with the pair chosen in the artistic direction -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600&display=swap">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+  <a class="skip" href="#menu">Aller à la carte</a>
+
+  <header class="header" id="top">
+    <div class="header__inner">
+      <a class="brand" href="#top" data-text="name"></a>
+      <nav class="nav" aria-label="Navigation">
+        <a href="#menu" data-ui="navMenu"></a>
+        <a href="#about" data-ui="navAbout"></a>
+        <a href="#visit" data-ui="navVisit"></a>
+      </nav>
+      <div class="header__actions">
+        <div class="lang" id="lang"></div>
+        <a class="btn btn--small" id="header-cta" data-ui="ctaPrimary"></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media" id="hero-media" hidden></div>
+      <div class="hero__content">
+        <h1 class="hero__title" data-text="name"></h1>
+        <p class="hero__tagline" data-text="tagline"></p>
+        <div class="hero__actions">
+          <a class="btn" id="hero-cta" data-ui="ctaPrimary"></a>
+          <a class="link" href="#menu" data-ui="ctaSecondary"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section menu" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <h2 class="section__title" id="menu-title" data-ui="menuTitle"></h2>
+      </div>
+      <nav class="chips" id="chips" aria-label="Catégories"></nav>
+      <div class="container" id="menu-list"></div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div>
+          <h2 class="section__title" id="about-title" data-ui="aboutTitle"></h2>
+          <p class="about__text" data-text="about"></p>
+        </div>
+        <div class="about__media" id="about-media" hidden></div>
+      </div>
+    </section>
+
+    <section class="section visit" id="visit" aria-labelledby="visit-title">
+      <div class="container">
+        <h2 class="section__title" id="visit-title" data-ui="visitTitle"></h2>
+        <div class="visit__grid" id="visit-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span data-text="name"></span>
+      <span id="year"></span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="cart.js"></script>
+  <script src="app.js"></script>
+  <script src="whatsapp.js"></script>
+</body>
+</html>

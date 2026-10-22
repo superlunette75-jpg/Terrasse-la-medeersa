@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Commande</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+  <main class="section">
+    <div class="container sent" id="status" aria-live="polite"></div>
+  </main>
+  <script src="data.js"></script>
+  <script>
+    (function () {
+      const S = window.SITE;
+      let lang = S.languages[0];
+      try { const l = localStorage.getItem("site-lang"); if (S.languages.includes(l)) lang = l; } catch (e) {}
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      const t = (v) => (typeof v === "string" ? v : v[lang] ?? v[S.languages[0]]);
+      const TXT = {
+        paid: { fr: "Merci, votre commande est confirmée", en: "Thank you, your order is confirmed", ar: "شكرًا، تم تأكيد طلبك" },
+        pending: { fr: "Paiement en cours de vérification…", en: "Checking your payment…", ar: "جارٍ التحقق من الدفع…" },
+        failed: { fr: "Le paiement n'a pas abouti", en: "The payment didn't go through", ar: "لم تتم عملية الدفع" },
+        text: { fr: "Nous préparons votre commande. Nous vous appelons si besoin.", en: "We're preparing your order and will call you if needed.", ar: "نحن نحضّر طلبك وسنتصل بك عند الحاجة." },
+        failedText: { fr: "Aucun montant n'a été débité. Vous pouvez réessayer.", en: "You have not been charged. You can try again.", ar: "لم يتم خصم أي مبلغ. يمكنك المحاولة مجددًا." },
+        number: { fr: "Commande n°", en: "Order #", ar: "رقم الطلب" },
+        back: { fr: "Retour au site", en: "Back to the site", ar: "العودة إلى الموقع" },
+        call: { fr: "Nous appeler", en: "Call us", ar: "اتصل بنا" },
+      };
+      const box = document.getElementById("status");
+      const id = new URLSearchParams(location.search).get("order");
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+      function show(state) {
+        const ok = state === "paid" || state === "confirmed";
+        const failed = state === "failed";
+        box.innerHTML = `
+          <div class="sent__icon" aria-hidden="true">${ok ? "✓" : failed ? "!" : "…"}</div>
+          <h1 style="font-size:clamp(30px,6vw,44px)">${esc(t(ok ? TXT.paid : failed ? TXT.failed : TXT.pending))}</h1>
+          ${id ? `<p>${esc(t(TXT.number))} <strong>${esc(id)}</strong></p>` : ""}
+          <p>${esc(t(failed ? TXT.failedText : TXT.text))}</p>
+          <div style="display:flex;gap:20px;align-items:center;margin-top:12px">
+            <a class="btn" href="index.html${failed ? "#menu" : ""}">${esc(t(TXT.back))}</a>
+            <a class="link" href="tel:${esc(S.contact.phone)}">${esc(t(TXT.call))}</a>
+          </div>`;
+      }
+
+      // Poll the order status: the payment provider confirms it to the server (webhook/callback)
+      let tries = 0;
+      async function poll() {
+        if (!id) return show("failed");
+        try {
+          const r = await fetch(`/api/orders/${encodeURIComponent(id)}`);
+          const o = await r.json();
+          show(o.status);
+          if (o.status === "paid" || o.status === "confirmed") { try { localStorage.removeItem("site-cart"); } catch (e) {} return; }
+          if (o.status === "failed") return;
+        } catch (e) { show("pending"); }
+        if (++tries < 20) setTimeout(poll, 2000);
+      }
+      if (new URLSearchParams(location.search).get("status") === "failed") show("failed");
+      else { show("pending"); poll(); }
+    })();
+  </script>
+</body>
+</html>
