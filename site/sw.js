@@ -5,10 +5,10 @@
  * - images, fonts, scripts: cache first, refreshed in the background
  * Bump VERSION after every change to the site so phones pick up the new files.
  */
-const VERSION = "medersa-v2";
+const VERSION = "medersa-v3";
 const SHELL = [
   "./", "index.html", "styles.css", "cart.css", "data.js", "cart.js", "app.js", "whatsapp.js",
-  "sound.js", "pwa.js", "manifest.webmanifest", "images/ornament.svg", "images/hero.webp",
+  "sound.js", "pwa.js", "manifest.webmanifest", "images/ornament.svg", "images/hero.webp", "images/hero-800.webp",
   "icons/icon-192.png",
 ];
 

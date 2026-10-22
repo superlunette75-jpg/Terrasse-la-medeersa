@@ -43,6 +43,8 @@
     },
 
     heroImage: "images/hero.webp",
+    heroSrcset: "images/hero-800.webp 800w, images/hero.webp 1200w",
+    responsiveImages: true, // dish photos also exist as <id>-sm.webp (400 px) for phones
     heroAlt: { fr: "La cour du foundouk de La Terrasse de la Medersa", en: "The foundouk courtyard of La Terrasse de la Medersa", es: "El patio del fundouk de La Terrasse de la Medersa" },
     aboutImage: "images/about.webp",
     aboutAlt: { fr: "Les balcons en bois sculpté du foundouk", en: "The carved wooden balconies of the foundouk", es: "Los balcones de madera tallada del fundouk" },

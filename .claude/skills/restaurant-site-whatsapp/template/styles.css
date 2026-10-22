@@ -63,7 +63,7 @@ p { margin: 0; }
 /* ---------- header ---------- */
 .header {
   position: sticky; top: 0; z-index: 50;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   transition: box-shadow .2s ease;
 }
@@ -118,7 +118,7 @@ p { margin: 0; }
 /* ---------- menu ---------- */
 .chips {
   position: sticky; top: var(--header-h); z-index: 40;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-block: 1px solid var(--line);
   margin-bottom: 8px;

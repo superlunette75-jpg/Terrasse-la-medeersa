@@ -73,7 +73,8 @@
     const hero = $("#hero-media");
     if (S.heroImage) {
       hero.hidden = false;
-      hero.innerHTML = `<img src="${esc(S.heroImage)}" alt="${esc(t(S.heroAlt) || t(S.name))}" fetchpriority="high">`;
+      const heroSet = S.heroSrcset ? `srcset="${esc(S.heroSrcset)}" sizes="(max-width: 859px) 100vw, 50vw"` : "";
+      hero.innerHTML = `<img src="${esc(S.heroImage)}" ${heroSet} alt="${esc(t(S.heroAlt) || t(S.name))}" fetchpriority="high">`;
       $("#hero").classList.add("hero--image");
     }
     const about = $("#about-media");
@@ -83,11 +84,16 @@
     }
   }
 
-  function dishHTML(it) {
+  // Photos come in two sizes: <name>.webp (800 px) and <name>-sm.webp (400 px) for phones
+  const srcset = (src) => S.responsiveImages && /\.webp$/.test(src)
+    ? `srcset="${esc(src.replace(/\.webp$/, "-sm.webp"))} 400w, ${esc(src)} 800w" sizes="(max-width: 600px) 34vw, 380px"`
+    : "";
+
+  function dishHTML(it, grid) {
     const tags = (it.tags || []).map((tg) => `<span class="tag tag--${esc(tg)}">${esc(ui("tag_" + tg) || tg)}</span>`).join("");
     const img = it.image
-      ? `<img class="dish__img" src="${esc(it.image)}" alt="${esc(t(it.name))}" loading="lazy" width="800" height="600" onerror="this.remove()">`
-      : "";
+      ? `<img class="dish__img" src="${esc(it.image)}" ${srcset(it.image)} alt="${esc(t(it.name))}" loading="lazy" decoding="async" width="800" height="600" onerror="this.remove()">`
+      : grid ? `<div class="dish__img dish__img--empty" aria-hidden="true"></div>` : "";
     const action = ORDER ? ORDER.dishAction(it) : "";
     return `
       <article class="dish${it.image ? " dish--image" : ""}" id="dish-${esc(it.id)}">
@@ -115,7 +121,7 @@
         <section class="category" id="cat-${esc(c.id)}" aria-labelledby="h-${esc(c.id)}">
           <h3 class="category__title" id="h-${esc(c.id)}">${esc(t(c.name))}</h3>
           ${c.note ? `<p class="category__note">${esc(t(c.note))}</p>` : ""}
-          <div class="dishes${withImages ? " dishes--grid" : ""}">${c.items.map(dishHTML).join("")}</div>
+          <div class="dishes${withImages ? " dishes--grid" : ""}">${c.items.map((it) => dishHTML(it, withImages)).join("")}</div>
         </section>`)
       .join("");
     if (ORDER) ORDER.bind();

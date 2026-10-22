@@ -66,7 +66,7 @@ p { margin: 0; }
 /* ---------- header ---------- */
 .header {
   position: sticky; top: 0; z-index: 50;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   transition: box-shadow .2s ease;
 }
@@ -121,7 +121,7 @@ p { margin: 0; }
 /* ---------- menu ---------- */
 .chips {
   position: sticky; top: var(--header-h); z-index: 40;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-block: 1px solid var(--line);
   margin-bottom: 8px;
@@ -262,3 +262,36 @@ button, .btn, .chip, .add, .cartbar, .lang button { touch-action: manipulation; 
 @media (max-width: 520px) { .brand__long { display: none; } .brand__short { display: inline; } .lang button { min-width: 32px; } }
 /* hero: on phones keep name and button in the first screen */
 @media (max-width: 859px) { .hero--image .hero__media img { aspect-ratio: 1 / 1; max-height: 52vh; } }
+
+/* =====================================================================
+   Menu on phones: 3 dishes per row, compact cards
+   ===================================================================== */
+.dish__img { background: var(--line); } /* tint while the photo loads */
+.dish__img--empty {
+  aspect-ratio: 4 / 3; background: var(--surface);
+  -webkit-mask: none; position: relative;
+}
+.dish__img--empty::after { /* the ornament stands in for a photo (drinks, extras) */
+  content: ""; position: absolute; inset: 30% 18%; background: var(--accent); opacity: .5;
+  -webkit-mask: url(images/ornament.svg) center / contain no-repeat; mask: url(images/ornament.svg) center / contain no-repeat;
+}
+@media (max-width: 600px) {
+  .category { padding-top: 26px; }
+  .category__title { margin-bottom: 4px; }
+  .dishes--grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  .dishes--grid .dish { border-radius: 12px; }
+  .dishes--grid .dish__img { aspect-ratio: 1 / 1; }
+  .dishes--grid .dish__body { padding: 8px 8px 9px; }
+  .dishes--grid .dish__head { flex-direction: column; align-items: flex-start; gap: 3px; }
+  .dishes--grid .dish__name {
+    font-size: 15px; line-height: 1.12;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .dishes--grid .dish__price { font-size: 13px; }
+  .dishes--grid .dish__desc, .dishes--grid .dish__tags { display: none; }
+  .dishes--grid .dish__foot { padding-top: 8px; margin-top: auto; }
+  .dishes--grid .add { width: 100%; min-height: 34px; padding: 0 6px; gap: 4px; justify-content: center; font-size: 13px; }
+  .dishes--grid .stepper { width: 100%; justify-content: space-between; padding: 2px; }
+  .dishes--grid .stepper button { width: 30px; height: 30px; font-size: 16px; }
+  .dishes--grid .stepper span { min-width: 0; font-size: 14px; }
+}

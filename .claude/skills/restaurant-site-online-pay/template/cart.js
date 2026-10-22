@@ -94,21 +94,38 @@
   }
 
   // ---------- floating bar + drawer ----------
+  // A plain fixed panel, not <dialog>: <dialog> shows only its dark backdrop in some phone
+  // browsers and in-app web views (Instagram, WhatsApp...), which hides the order.
   function ensureShell() {
     if (document.getElementById("cartbar")) return;
     document.body.insertAdjacentHTML("beforeend", `
       <button class="cartbar" id="cartbar" type="button" hidden></button>
-      <dialog class="drawer" id="drawer" aria-labelledby="drawer-title">
-        <form method="dialog" class="drawer__inner" id="order-form" novalidate></form>
-      </dialog>`);
+      <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+      <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+        <form class="drawer__inner" id="order-form" novalidate></form>
+      </div>`);
     document.getElementById("cartbar").addEventListener("click", open);
-    const d = document.getElementById("drawer");
-    d.addEventListener("click", (e) => { if (e.target === d) d.close(); }); // click on backdrop
+    document.getElementById("sheet-backdrop").addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) close(); });
   }
+
+  const isOpen = () => { const d = document.getElementById("drawer"); return !!d && !d.hidden; };
 
   function open() {
     renderDrawer();
-    document.getElementById("drawer").showModal();
+    document.getElementById("sheet-backdrop").hidden = false;
+    document.getElementById("drawer").hidden = false;
+    document.body.classList.add("sheet-open");
+    const btn = document.getElementById("drawer-close");
+    if (btn) btn.focus({ preventScroll: true });
+  }
+
+  function close() {
+    document.getElementById("sheet-backdrop").hidden = true;
+    document.getElementById("drawer").hidden = true;
+    document.body.classList.remove("sheet-open");
+    const bar = document.getElementById("cartbar");
+    if (bar && !bar.hidden) bar.focus({ preventScroll: true });
   }
 
   function renderBar() {
@@ -201,7 +218,7 @@
     }
 
     bindIn(form);
-    form.querySelector("#drawer-close").addEventListener("click", () => document.getElementById("drawer").close());
+    form.querySelector("#drawer-close").addEventListener("click", close);
     form.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener("change", () => { state.mode = r.value; renderDrawer(); }));
     const z = form.querySelector("#f-zone");
     if (z) z.addEventListener("change", () => { state.zone = Number(z.value); renderDrawer(); });
@@ -264,8 +281,7 @@
       bindIn(el);
     });
     renderBar();
-    const d = document.getElementById("drawer");
-    if (d && d.open) renderDrawer();
+    if (isOpen()) renderDrawer();
   }
 
   window.ORDER = {
@@ -274,6 +290,7 @@
     render() { ensureShell(); renderBar(); },
     clear() { cart = {}; save(); refresh(); },
     open,
+    close,
     totals,
     lines,
     config: CFG,

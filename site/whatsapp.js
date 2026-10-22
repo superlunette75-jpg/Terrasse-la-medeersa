@@ -63,7 +63,7 @@
     foot.innerHTML = `<button type="button" class="btn btn--block" id="new-order">${esc(O.text("newOrder"))}</button>`;
     foot.querySelector("#new-order").addEventListener("click", () => {
       O.clear();
-      document.getElementById("drawer").close();
+      O.close();
     });
   }
 
