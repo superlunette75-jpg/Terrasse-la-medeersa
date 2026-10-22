@@ -86,6 +86,7 @@ p { margin: 0; }
 }
 .lang button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 @media (min-width: 860px) { .nav { display: flex; } }
+@media (max-width: 859px) { .nav + .header__actions { margin-inline-start: auto; } }
 @media (max-width: 420px) { #header-cta { display: none; } }
 
 /* ---------- hero ---------- */

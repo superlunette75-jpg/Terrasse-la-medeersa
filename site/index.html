@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>La Terrasse de la Medersa · Restaurant marocain, médina de Marrakech</title>
+  <meta name="description" content="Tajines, couscous, pastilla et tanjia marrakchia dans un ancien foundouk de la médina de Marrakech. Carte en ligne et commande à emporter sur WhatsApp.">
+  <meta property="og:title" content="La Terrasse de la Medersa · Marrakech">
+  <meta property="og:description" content="Cuisine marocaine dans un ancien foundouk, au cœur de la médina. Commandez à emporter sur WhatsApp.">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:image" content="images/hero.webp">
+
+  <!-- App mode -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#F3E9DA">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="La Medersa">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+
+  <!-- Fonts: Cormorant Garamond + Manrope; Pinyon Script subset to the "Bienvenue" words only -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap&text=BienvuWlcomd">
+
+  <link rel="preload" as="image" href="images/hero.webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+  <a class="skip" href="#menu">Aller à la carte</a>
+
+  <header class="header" id="top">
+    <div class="header__inner">
+      <a class="brand" href="#top"><span class="brand__long" data-text="name"></span><span class="brand__short" data-text="shortName"></span></a>
+      <nav class="nav" aria-label="Navigation">
+        <a href="#menu" data-ui="navMenu"></a>
+        <a href="#about" data-ui="navAbout"></a>
+        <a href="#visit" data-ui="navVisit"></a>
+      </nav>
+      <div class="header__actions">
+        <div class="lang" id="lang"></div>
+        <a class="btn btn--small" id="header-cta" data-ui="ctaPrimary"></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media" id="hero-media" hidden></div>
+      <div class="hero__content">
+        <span class="ornament" aria-hidden="true"></span>
+        <p class="hero__welcome" data-text="welcome"></p>
+        <h1 class="hero__title" data-text="name"></h1>
+        <p class="hero__tagline" data-text="tagline"></p>
+        <div class="hero__actions">
+          <a class="btn" id="hero-cta" data-ui="ctaPrimary"></a>
+          <a class="link" href="#visit" data-ui="navVisit"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section menu" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <h2 class="section__title" id="menu-title" data-ui="menuTitle"></h2>
+      </div>
+      <nav class="chips" id="chips" aria-label="Catégories"></nav>
+      <div class="container" id="menu-list"></div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div>
+          <h2 class="section__title" id="about-title" data-ui="aboutTitle"></h2>
+          <p class="about__text" data-text="about"></p>
+        </div>
+        <div class="about__media" id="about-media" hidden></div>
+      </div>
+    </section>
+
+    <section class="section visit" id="visit" aria-labelledby="visit-title">
+      <div class="container">
+        <h2 class="section__title" id="visit-title" data-ui="visitTitle"></h2>
+        <div class="visit__grid" id="visit-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span data-text="name"></span>
+      <span id="year"></span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="cart.js"></script>
+  <script src="app.js"></script>
+  <script src="whatsapp.js"></script>
+  <script src="sound.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

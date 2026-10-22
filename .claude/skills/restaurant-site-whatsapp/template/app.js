@@ -86,7 +86,7 @@
   function dishHTML(it) {
     const tags = (it.tags || []).map((tg) => `<span class="tag tag--${esc(tg)}">${esc(ui("tag_" + tg) || tg)}</span>`).join("");
     const img = it.image
-      ? `<img class="dish__img" src="${esc(it.image)}" alt="${esc(t(it.name))}" loading="lazy" width="800" height="600">`
+      ? `<img class="dish__img" src="${esc(it.image)}" alt="${esc(t(it.name))}" loading="lazy" width="800" height="600" onerror="this.remove()">`
       : "";
     const action = ORDER ? ORDER.dishAction(it) : "";
     return `

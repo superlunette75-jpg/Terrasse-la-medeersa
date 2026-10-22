@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full-bleed terracotta (safe for maskable icons) with a cream foundouk arch door -->
+  <rect width="512" height="512" fill="#B04A24"/>
+  <path d="M156 410 V236 C156 170 201 122 256 122 C311 122 356 170 356 236 V410 Z" fill="#F3E9DA"/>
+  <path d="M184 410 V240 C184 189 216 152 256 152 C296 152 328 189 328 240 V410" fill="none" stroke="#B04A24" stroke-width="6"/>
+  <path d="M256 236 L284 264 L256 292 L228 264 Z" fill="none" stroke="#B04A24" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M256 252 L268 264 L256 276 L244 264 Z" fill="#C98A2B"/>
+  <rect x="120" y="408" width="272" height="10" rx="5" fill="#F3E9DA"/>
+</svg>

@@ -1,0 +1,101 @@
+/* Ordering UI: add buttons, stepper, floating cart bar, order drawer. Uses tokens from styles.css. */
+
+.add {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px;
+  border: 0; border-radius: var(--radius-btn); cursor: pointer;
+  background: var(--ink); color: var(--bg); font: 600 14px/1 var(--font-body);
+  transition: transform .15s ease;
+}
+.add:active { transform: scale(.95); }
+.dish__foot:has(.add, .stepper) .dish__tags:empty { display: none; }
+.dish__foot .add, .dish__foot .stepper { margin-inline-start: auto; }
+
+.stepper {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px;
+  border-radius: var(--radius-btn); box-shadow: inset 0 0 0 1px var(--line); background: var(--surface);
+}
+.stepper button {
+  width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--bg); color: var(--ink); font: 600 18px/1 var(--font-body);
+}
+.stepper span { min-width: 22px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* floating bar */
+.cartbar {
+  position: fixed; z-index: 60; inset-inline: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  max-width: 560px; margin-inline: auto;
+  display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 0 20px;
+  border: 0; border-radius: var(--radius-btn); cursor: pointer;
+  background: var(--accent); color: var(--accent-ink); font: 600 16px/1 var(--font-body);
+  box-shadow: 0 10px 30px rgb(0 0 0 / .18);
+  animation: rise .3s ease;
+}
+.cartbar[hidden] { display: none; }
+.cartbar__count {
+  display: grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-ink) 22%, transparent); font-size: 14px;
+}
+.cartbar__total { margin-inline-start: auto; font-variant-numeric: tabular-nums; }
+body.has-cartbar .footer { padding-bottom: 96px; }
+@keyframes rise { from { transform: translateY(20px); opacity: 0; } }
+
+/* drawer (native <dialog>) */
+.drawer {
+  padding: 0; border: 0; color: var(--ink); background: var(--bg);
+  width: 100%; max-width: 520px; max-height: 92dvh; margin: auto auto 0;
+  border-radius: 22px 22px 0 0; overflow: hidden;
+}
+.drawer::backdrop { background: rgb(0 0 0 / .45); }
+.drawer[open] { animation: rise .25s ease; }
+@media (min-width: 700px) {
+  .drawer { margin: 0 0 0 auto; height: 100dvh; max-height: none; border-radius: 0; }
+  [dir="rtl"] .drawer { margin: 0 auto 0 0; }
+}
+.drawer__inner { display: flex; flex-direction: column; height: 100%; max-height: inherit; }
+.drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.drawer__head h2 { font-size: 26px; }
+.drawer__close { width: 44px; height: 44px; border: 0; background: none; color: var(--ink); font-size: 18px; cursor: pointer; border-radius: 50%; }
+.drawer__body { flex: 1; overflow-y: auto; padding: 8px 20px 20px; overscroll-behavior: contain; }
+.drawer__foot { padding: 16px 20px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
+.drawer__hint { font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+.drawer__error { font-size: 14px; color: #B3261E; margin: 0 0 10px; font-weight: 600; }
+
+.lines { list-style: none; margin: 0; padding: 0; }
+.line { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.line strong { display: block; font-weight: 600; }
+.line small { color: var(--muted); }
+.line--empty { color: var(--muted); justify-content: center; padding: 40px 0; border: 0; }
+
+.segmented { display: flex; gap: 4px; padding: 4px; margin-top: 18px; border-radius: var(--radius-btn); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.segmented label { flex: 1; }
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented span { display: grid; place-items: center; min-height: 42px; border-radius: var(--radius-btn); font-weight: 600; font-size: 14px; color: var(--muted); cursor: pointer; }
+.segmented input:checked + span { background: var(--ink); color: var(--bg); }
+.segmented input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.fields { border: 0; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field input:not([type="radio"]), .field textarea, .field select {
+  width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font: 400 16px/1.4 var(--font-body); /* 16px avoids iOS zoom */
+}
+.field textarea { resize: vertical; }
+.field :is(input:not([type="radio"]), textarea, select):focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.choice { display: flex; gap: 12px; align-items: center; min-height: 56px; padding: 10px 14px; line-height: 1.35; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+.choice:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.choice input { flex: none; accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
+.choice small { color: var(--muted); }
+
+.sum { margin: 0 0 14px; display: grid; gap: 6px; }
+.sum div { display: flex; justify-content: space-between; color: var(--muted); }
+.sum dd { margin: 0; font-variant-numeric: tabular-nums; }
+.sum__total { color: var(--ink) !important; font-weight: 700; font-size: 18px; }
+.btn--block { width: 100%; min-height: 54px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.sent { text-align: center; padding: 48px 8px; display: grid; gap: 12px; justify-items: center; }
+.sent__icon { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); font-size: 28px; }
+.sent h3 { font-size: 26px; }
+.sent p { color: var(--muted); max-width: 34ch; }

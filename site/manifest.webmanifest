@@ -1,0 +1,17 @@
+{
+  "name": "La Terrasse de la Medersa",
+  "short_name": "La Medersa",
+  "description": "Cuisine marocaine au cœur de la médina de Marrakech : carte et commande à emporter.",
+  "lang": "fr",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3E9DA",
+  "theme_color": "#F3E9DA",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

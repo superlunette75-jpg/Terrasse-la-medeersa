@@ -10,9 +10,9 @@
   const st = (v) => (v == null ? "" : typeof v === "string" ? v : v[staff] ?? Object.values(v)[0]);
 
   const L = {
-    fr: { title: "Nouvelle commande", mode: "Mode", name: "Nom", phone: "Tél", address: "Adresse", zone: "Quartier", map: "Position", time: "Pour", asap: "Dès que possible", note: "Remarque", subtotal: "Sous-total", fee: "Livraison", total: "Total", pay: "Paiement à la livraison" },
-    en: { title: "New order", mode: "Mode", name: "Name", phone: "Phone", address: "Address", zone: "Area", map: "Location", time: "For", asap: "As soon as possible", note: "Note", subtotal: "Subtotal", fee: "Delivery", total: "Total", pay: "Payment on delivery" },
-    ar: { title: "طلب جديد", mode: "الطريقة", name: "الاسم", phone: "الهاتف", address: "العنوان", zone: "المنطقة", map: "الموقع", time: "الوقت", asap: "في أقرب وقت", note: "ملاحظة", subtotal: "المجموع الفرعي", fee: "التوصيل", total: "المجموع", pay: "الدفع عند الاستلام" },
+    fr: { title: "Nouvelle commande", mode: "Mode", name: "Nom", phone: "Tél", address: "Adresse", zone: "Quartier", map: "Position", time: "Pour", asap: "Dès que possible", note: "Remarque", subtotal: "Sous-total", fee: "Livraison", total: "Total", pay: "Paiement à la livraison", payHere: "Paiement sur place" },
+    en: { title: "New order", mode: "Mode", name: "Name", phone: "Phone", address: "Address", zone: "Area", map: "Location", time: "For", asap: "As soon as possible", note: "Note", subtotal: "Subtotal", fee: "Delivery", total: "Total", pay: "Payment on delivery", payHere: "Payment on site" },
+    ar: { title: "طلب جديد", mode: "الطريقة", name: "الاسم", phone: "الهاتف", address: "العنوان", zone: "المنطقة", map: "الموقع", time: "الوقت", asap: "في أقرب وقت", note: "ملاحظة", subtotal: "المجموع الفرعي", fee: "التوصيل", total: "المجموع", pay: "الدفع عند الاستلام", payHere: "الدفع في المطعم" },
   }[staff] || {};
   const MODES = { fr: { delivery: "Livraison", pickup: "À emporter", table: "Sur place" }, en: { delivery: "Delivery", pickup: "Pickup", table: "Dine in" }, ar: { delivery: "توصيل", pickup: "استلام", table: "في المطعم" } }[staff] || {};
   const money = (n) => `${n} ${S.currencyLabel}`;
@@ -37,7 +37,7 @@
     }
     out.push(`${L.time}: ${c.time || L.asap}`);
     if (c.note) out.push(`${L.note}: ${c.note}`);
-    if (o.mode === "delivery") out.push("", `_${L.pay}_`);
+    out.push("", `_${o.mode === "delivery" ? L.pay : L.payHere}_`);
     return out.join("\n");
   }
 

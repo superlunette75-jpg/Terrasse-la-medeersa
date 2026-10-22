@@ -160,6 +160,7 @@
 
     const extra = window.ORDER.extraFields ? window.ORDER.extraFields() : "";
     const hint = [
+      CFG.note ? t(CFG.note) : "",
       CFG.minOrder ? `${T("minOrder")} : ${money(CFG.minOrder)}` : "",
       state.mode === "delivery" && CFG.delivery.freeFrom ? `${T("freeFrom")} ${money(CFG.delivery.freeFrom)}` : "",
     ].filter(Boolean).join(" · ");
