@@ -192,7 +192,10 @@
         chips.forEach((c) => {
           const on = c.dataset.cat === e.target.id.replace("cat-", "");
           c.classList.toggle("is-active", on);
-          if (on) c.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          if (on) { // centre the chip inside its own row only (scrollIntoView would also move the page)
+            const track = c.parentElement;
+            track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: "smooth" });
+          }
         });
       });
     }, { rootMargin: "-40% 0px -55% 0px" });
