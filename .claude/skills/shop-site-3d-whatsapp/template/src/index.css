@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* THEME: change these to the brand's colours (RGB triplets, no commas). */
+:root {
+  --font: 'Kanit';
+  --ink: 20 11 6; /* dark background + dark text */
+  --light: 255 231 199; /* text on dark */
+  --paper: 255 244 230; /* light sections (menu, how-to) */
+  --accent: 242 123 31; /* main brand colour: add buttons, numbers */
+  --accent-2: 247 162 59; /* secondary brand colour: prices on dark */
+  --accent-dark: 180 82 14; /* prices on light, links */
+  /* big gradient titles (.hero-heading) */
+  --heading-from: #a8673a;
+  --heading-to: #ffd9a8;
+  /* main call-to-action pill gradient (OrderButton) */
+  --btn-1: #3b1a08;
+  --btn-2: #f27b1f;
+  --btn-3: #f7a23b;
+  --btn-4: #ffcf70;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  background: rgb(var(--ink));
+  font-family: var(--font), sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Gradient title text */
+.hero-heading {
+  background: linear-gradient(180deg, var(--heading-from) 0%, var(--heading-to) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
